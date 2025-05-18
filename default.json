@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "page_margins": {
+      "top": 1.0,
+      "bottom": 1.0,
+      "left": 1.25,
+      "right": 1.25
+    },
+    "header": {
+      "text": "DocuMorph AI",
+      "alignment": "right"
+    },
+    "footer": {
+      "text": "Confidential",
+      "alignment": "center"
+    },
+    "include_toc": true
+  },
+  "title": {
+    "font": "Times New Roman",
+    "size": 20,
+    "bold": true,
+    "italic": false,
+    "letter_spacing": 0,
+    "word_spacing": 1,
+    "space_before": 14,
+    "space_after": 8,
+    "line_spacing": 22
+  },
+  "heading": {
+    "font": "Calibri",
+    "size": 18,
+    "bold": true,
+    "italic": false,
+    "letter_spacing": 0,
+    "word_spacing": 1,
+    "space_before": 12,
+    "space_after": 6,
+    "line_spacing": 20
+  },
+  "subheading": {
+    "font": "Calibri",
+    "size": 14,
+    "bold": true,
+    "italic": false,
+    "letter_spacing": 0,
+    "word_spacing": 1,
+    "space_before": 10,
+    "space_after": 5,
+    "line_spacing": 18
+  },
+  "body": {
+    "font": "Calibri",
+    "size": 12,
+    "bold": false,
+    "italic": false,
+    "letter_spacing": 0,
+    "word_spacing": 1,
+    "space_before": 6,
+    "space_after": 6,
+    "line_spacing": 16,
+    "alignment": "justify"
+  },
+  "quote": {
+    "font": "Georgia",
+    "size": 12,
+    "bold": false,
+    "italic": true,
+    "letter_spacing": 0,
+    "word_spacing": 1,
+    "space_before": 6,
+    "space_after": 6,
+    "line_spacing": 16,
+    "alignment": "left"
+  },
+  "abstract": {
+  "font": "Calibri",
+  "size": 14,
+  "bold": true,
+  "italic": true,
+  "alignment": "center",
+  "space_before": 10,
+  "space_after": 10
+  },
+  "equation": {
+    "width_inch": 3.5,
+    "caption": {
+      "font": "Calibri",
+      "size": 11,
+      "bold": false,
+      "italic": true,
+      "prefix": "Equation"
+    },
+    "alignment": "center"
+  }
+}

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Editor with Preview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+  <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background: linear-gradient(to bottom right, #000000, #1f2937);
+      color: white;
+    }
+
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 255, 255, 0.25);
+    }
+
+    .neon {
+      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+    }
+
+    .editor-container,
+    .preview-container {
+      min-height: 600px;
+    }
+
+    .ql-toolbar .ql-picker-options {
+      background: #1f2937 !important;
+      color: white;
+      border: 1px solid #4fd1c5;
+      z-index: 9999;
+    }
+
+    .ql-color-picker .ql-picker-options span,
+    .ql-background .ql-picker-options span {
+      border: 1px solid white;
+    }
+
+    .ql-toolbar button,
+    .ql-toolbar .ql-picker-label,
+    .ql-toolbar .ql-picker-item {
+      color: white !important;
+      fill: white !important;
+      stroke: white !important;
+    }
+
+    .ql-snow .ql-picker-options .ql-picker-item:hover {
+      background: #0ff !important;
+      color: black !important;
+    }
+
+    .ql-snow .ql-picker-label {
+      background-color: #1f2937 !important;
+      color: white !important;
+    }
+
+    .bordered {
+      border: 2px dashed #0ff;
+      padding: 20px;
+      border-radius: 12px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #00f, #0ff, #0f0, #ff0, #f00);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen font-sans">
+  <div class="container mx-auto px-6 py-8">
+    <h1 class="text-3xl font-bold mb-2 border-b border-cyan-400 pb-2 w-fit">🔎 Preview</h1>
+    <hr class="border-cyan-400 mb-8" />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+      <!-- Editor -->
+      <div class="glass rounded-xl p-6 shadow-xl">
+        <div id="toolbar" class="mb-4 flex flex-wrap items-center gap-2">
+          <span class="ql-formats">
+            <select class="ql-header"></select>
+            <select class="ql-font">
+              <option selected></option>
+              <option value="serif"></option>
+              <option value="monospace"></option>
+              <option value="comic-sans">Comic Sans</option>
+              <option value="courier-new">Courier New</option>
+              <option value="georgia">Georgia</option>
+              <option value="helvetica">Helvetica</option>
+              <option value="impact">Impact</option>
+              <option value="lucida">Lucida</option>
+              <option value="palatino">Palatino</option>
+              <option value="tahoma">Tahoma</option>
+              <option value="times-new-roman">Times New Roman</option>
+              <option value="trebuchet">Trebuchet</option>
+              <option value="verdana">Verdana</option>
+            </select>
+            <select class="ql-size">
+              <option value="small"></option>
+              <option selected></option>
+              <option value="large"></option>
+              <option value="huge"></option>
+            </select>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-bold"></button>
+            <button class="ql-italic"></button>
+            <button class="ql-underline"></button>
+            <button class="ql-strike"></button>
+          </span>
+          <span class="ql-formats">
+            <select class="ql-color"></select>
+            <select class="ql-background"></select>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-script" value="sub"></button>
+            <button class="ql-script" value="super"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-list" value="ordered"></button>
+            <button class="ql-list" value="bullet"></button>
+            <button class="ql-indent" value="-1"></button>
+            <button class="ql-indent" value="+1"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-align" value=""></button>
+            <button class="ql-align" value="center"></button>
+            <button class="ql-align" value="right"></button>
+            <button class="ql-align" value="justify"></button>
+          </span>
+          <span class="ql-formats">
+            <button class="ql-link"></button>
+            <button class="ql-image"></button>
+            <button class="ql-clean"></button>
+          </span>
+          <span class="ql-formats">
+            <button onclick="toggleBorder()" title="Toggle Border"
+              class="text-white bg-transparent border border-cyan-500 rounded px-2 py-1 hover:bg-cyan-500 hover:text-black transition">
+              🧱
+            </button>
+            <button onclick="addPage()" title="Add New Page"
+              class="text-white bg-transparent border border-green-400 rounded px-2 py-1 hover:bg-green-400 hover:text-black transition">
+              ➕
+            </button>
+            <button onclick="applyGradient()" title="Gradient Text"
+              class="text-white bg-transparent border border-pink-500 rounded px-2 py-1 hover:bg-pink-500 hover:text-black transition">
+              🌈
+            </button>
+          </span>
+        </div>
+
+        <div id="editor" class="editor-container bg-white text-black rounded-md p-4 overflow-y-auto"></div>
+      </div>
+
+      <!-- Preview -->
+      <div class="glass neon rounded-xl p-6 shadow-xl flex flex-col items-center">
+        <h2 class="text-xl font-semibold mb-2 text-white text-center">📄 Live Output</h2>
+        <hr class="border-cyan-400 w-full mb-4" />
+        <div id="preview" class="preview-container bg-white text-black p-4 rounded-md w-full overflow-auto"></div>
+        <div class="flex gap-4 mt-6">
+          <button onclick="downloadPDF()"
+            class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-xl shadow-lg transition-all">
+            📄 Download .pdf
+          </button>
+          <button onclick="downloadDOCX()"
+            class="px-4 py-2 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-xl shadow-lg transition-all">
+            📄 Download .docx
+          </button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const Font = Quill.import('formats/font');
+    Font.whitelist = ['serif', 'monospace', 'comic-sans', 'courier-new', 'georgia', 'helvetica', 'impact', 'lucida', 'palatino', 'tahoma', 'times-new-roman', 'trebuchet', 'verdana'];
+    Quill.register(Font, true);
+
+    const quill = new Quill('#editor', {
+      theme: 'snow',
+      modules: {
+        toolbar: '#toolbar'
+      }
+    });
+
+    const preview = document.getElementById('preview');
+
+    quill.on('text-change', () => {
+      updatePreview();
+    });
+
+    function updatePreview() {
+      preview.innerHTML = quill.root.innerHTML;
+    }
+
+    
+
+    function toggleBorder() {
+      preview.classList.toggle('bordered');
+    }
+
+    function addPage() {
+      const newPage = document.createElement('p');
+      newPage.innerHTML = '<hr><br><strong>New Page:</strong><br><br>';
+      quill.root.appendChild(newPage);
+      updatePreview();
+    }
+
+    function applyGradient() {
+      const range = quill.getSelection();
+      if (range) {
+        const text = quill.getText(range.index, range.length);
+        const gradientSpan = `<span class="gradient-text">${text}</span>`;
+        quill.deleteText(range.index, range.length);
+        quill.clipboard.dangerouslyPasteHTML(range.index, gradientSpan);
+        updatePreview();
+      }
+    }
+
+    async function downloadPDF() {
+      const content = quill.root.innerHTML;
+      const { jsPDF } = await import('https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js');
+      const doc = new jsPDF();
+      await doc.html(content, {
+        callback: () => {
+          doc.save('editor-output.pdf');
+        },
+        x: 10,
+        y: 10,
+        width: 190
+      });
+    }
+
+    async function downloadDOCX() {
+      const content = quill.root.innerHTML;
+      const htmlDocx = (await import('https://cdnjs.cloudflare.com/ajax/libs/html-docx-js/0.4.1/html-docx.min.js')).default;
+      const converted = htmlDocx.asBlob(content);
+      const url = URL.createObjectURL(converted);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'editor-output.docx';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Initialize preview on load
+    updatePreview();
+  </script>
+</body>
+
+</html>

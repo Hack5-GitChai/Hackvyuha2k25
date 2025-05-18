@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose a Template</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add dark theme for template UI */
+        body {
+            background: #f8fafc;
+            color: #22223b;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+            opacity: 0;
+            animation: fadeInContainer 1s ease forwards;
+        }
+        .template-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        .template-card {
+            border-radius: 16px;
+            background: #fff;
+            box-shadow: 0 4px 24px 0 rgba(163,206,241,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.08);
+            padding: 1.5rem 1rem 1.2rem 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            animation: SlideBottom 0.8s cubic-bezier(.68,-0.55,.27,1.55);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.7s cubic-bezier(.68,-0.55,.27,1.55) forwards;
+        }
+        .template-card:hover {
+            background: #f9dcc4;
+            cursor: pointer;
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 32px rgba(163,206,241,0.22);
+        }
+        .template-card:nth-child(1) { animation-delay: 0.1s; }
+        .template-card:nth-child(2) { animation-delay: 0.3s; }
+        .template-card:nth-child(3) { animation-delay: 0.5s; }
+        .template-preview {
+            width: 100%;
+            height: 140px;
+            border-radius: 10px;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #3a5a40;
+            background: linear-gradient(90deg, #a3cef1 0%, #f9dcc4 100%);
+            box-shadow: 0 2px 8px rgba(163,206,241,0.12);
+            transition: background 0.3s;
+        }
+        .student-preview { background: linear-gradient(90deg, #a3cef1 0%, #f9dcc4 100%); color: #3a5a40; }
+        .research-preview { background: linear-gradient(90deg, #f9dcc4 0%, #a3cef1 100%); color: #3a5a40; }
+        .customization-preview { background: linear-gradient(90deg, #e0e7ef 0%, #b7e4c7 100%); color: #3a5a40; }
+        .template-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #588157;
+            margin-bottom: 0.7rem;
+            text-align: center;
+        }
+        .select-btn.apply-btn {
+            background: linear-gradient(90deg, #a3cef1 0%, #f9dcc4 100%);
+            color: #22223b;
+            border: none;
+            border-radius: 25px;
+            padding: 0.6rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(163,206,241,0.12);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+            animation: SlideTop 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        .select-btn.apply-btn.selected, .select-btn.apply-btn:active {
+            background: #f9dcc4;
+            color: #3a5a40;
+            border: 2px solid #a3cef1;
+        }
+        .select-btn.apply-btn:hover {
+            background: linear-gradient(90deg, #f9dcc4 0%, #a3cef1 100%);
+            color: #3a5a40;
+            border: 2px solid #a3cef1;
+            transform: scale(1.08) rotate(-2deg);
+            box-shadow: 0 8px 32px rgba(163,206,241,0.22);
+        }
+        @media (max-width: 900px) {
+            .template-grid {
+                grid-template-columns: 1fr;
+            }
+            .template-preview { height: 90px; font-size: 1.2rem; }
+        }
+        @keyframes SlideBottom {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes SlideTop {
+            0% { transform: translateY(100px); opacity: 0; }
+            100% { transform: translateY(0px); opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(40px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInContainer {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            margin-top: 0;
+            background: linear-gradient(90deg, #ff5e62, #ff9966, #f9d423, #a8e063, #43cea2, #1976d2, #9b59b6, #ff5e62);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Choose a Template</h1>
+        <div class="template-grid">
+            <div class="template-card">
+                <div class="template-preview student-preview">Student</div>
+                <div class="template-title">Student Template</div>
+                <button class="select-btn apply-btn">
+                    <span onclick="redirectToUpload()",style="margin-right:8px;">Apply</span>
+                    <span style="font-size:1.2em;vertical-align:middle;">&#10003;</span>
+                </button>
+            </div>
+            <div class="template-card">
+                <div class="template-preview research-preview">Research</div>
+                <div class="template-title">Research Template</div>
+                <button class="select-btn apply-btn">
+                    <span onclick="redirectToUpload()", style="margin-right:8px;">Apply</span>
+                    <span style="font-size:1.2em;vertical-align:middle;">&#10003;</span>
+                </button>
+            </div>
+            <div class="template-card">
+                <div class="template-preview customization-preview">Customization</div>
+                <div class="template-title">Customization Template</div>
+                <button class="select-btn apply-btn">
+                    <span onclick="redirectToUpload()", style="margin-right:8px;">Apply</span>
+                    <span style="font-size:1.2em;vertical-align:middle;">&#10003;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Highlight selected template
+        const buttons = document.querySelectorAll('.apply-btn');
+        buttons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                buttons.forEach(b => b.classList.remove('selected'));
+                this.classList.add('selected');
+                // You can add logic here to handle the applied template
+            });
+        });
+
+        function redirectToUpload() {
+  window.location.href = "upload.html";
+}
+    </script>
+
+</body>
+</html>

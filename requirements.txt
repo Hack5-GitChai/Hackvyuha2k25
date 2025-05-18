@@ -1,0 +1,10 @@
+streamlit
+python-docx
+docx2pdf
+easyocr
+pillow
+torch
+numpy
+pywin32
+comtypes
+pdf2image

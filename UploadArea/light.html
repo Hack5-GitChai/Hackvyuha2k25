@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DocuMorph AI | HackVyuha 2025 (Light Theme)</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    font-family: 'Poppins', sans-serif;
+}
+body {
+    color: #22223b;
+    background: #f8fafc;
+}
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 20px 30px;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.logo {
+    text-decoration: none;
+    font-size: 25px;
+    font-weight: 600;
+    color: #3a5a40;
+    opacity: 0;
+    animation: SlideRight 1s ease forwards;
+}
+.navbar a {
+    text-decoration: none;
+    font-size: 25px;
+    color: #3a5a40;
+    font-weight: 500;
+    margin-left: 35px;
+    transition: .3s;
+    opacity: 0;
+    animation: SlideTop .5s ease forwards;
+    animation-delay: calc(.2s*var(--i));
+}
+.navbar a:hover {
+    color: #588157;
+}
+.home {
+    position: relative;
+    width: 100%;
+    justify-content: space-between;
+    height: 100vh;
+    background: #e9ecef no-repeat;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    padding: 70px 10% 0;
+}
+.animation-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+.animation-wrapper iframe {
+    width: 100%;
+    height: 600px;
+    display: block;
+    border: none;
+}
+.home-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 2rem;
+    text-align: center;
+    color: #3a5a40;
+    box-sizing: border-box;
+    background: rgba(255,255,255,0.85);
+    border-radius: 10px;
+}
+.text {
+    color: #588157;
+    font-weight: bold;
+    font-size: 24px;
+}
+.typed-cursor {
+    font-size: 24px;
+    color: #f3722c;
+    animation: blink 0.7s infinite;
+}
+@keyframes blink {
+    0%,100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+.home-content h3 {
+    font-weight: 700;
+    font-size: 32px;
+    opacity: 0;
+    animation: SlideBottom 1s ease forwards;
+    animation-delay: .7s;
+}
+.home-content h3 span {
+    color: #588157;
+}
+.home-content h3:nth-of-type(2) {
+    margin-bottom: 30px;
+    animation: SlideTop 1s ease forwards;
+    animation-delay: .7s;
+}
+.home-content h1 {
+    font-size: 56px;
+    font-weight: 700;
+    margin: -3px 0;
+    opacity: 0;
+    animation: SlideRight 1s ease forwards;
+    animation-delay: 1s;
+    color: #3a5a40;
+}
+.home-content p {
+    font-size: 20px;
+    opacity: 0;
+    animation: SlideLeft 1s ease forwards;
+    animation-delay: 1s;
+    color: #495057;
+}
+.btn-box {
+    text-decoration: none;
+    display: inline-block;
+    padding: 12px 28px;
+    text-align: center;
+    background: linear-gradient(90deg, #a3cef1 0%, #f9dcc4 100%);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #22223b;
+    letter-spacing: 1px;
+    font-weight: 600;
+    opacity: 0;
+    animation: SlideTop 1s ease forwards;
+    animation-delay: 2s;
+    box-shadow: 0 0 2px #a3cef1, 0 0 25px #f9dcc4;
+    transition: background 0.3s, color 0.3s;
+}
+.btn-box:hover {
+    background: linear-gradient(90deg, #f9dcc4 0%, #a3cef1 100%);
+    color: #3a5a40;
+    box-shadow: 0 0 5px #a3cef1, 0 0 25px #f9dcc4, 0 0 50px #a3cef1;
+}
+.about {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    align-items: center;
+    gap: 1.5rem;
+    background: #ffffff;
+    padding: 50px 10%;
+}
+.about-img img {
+    padding-bottom: 20px;
+    max-width: 630px;
+    height: auto;
+    width: 100%;
+    border-radius: 8px;
+}
+.about-text h2 {
+    font-size: 60px;
+    color: #3a5a40;
+}
+.about-text h2 span {
+    color: #588157;
+}
+.about-text h4 {
+    font-size: 29px;
+    font-weight: 600;
+    color: #495057;
+    line-height: 1.7;
+    margin: 15px 0 30px;
+}
+.about-text p {
+    margin-bottom: 4rem;
+    color: #495057;
+    font-size: 20px;
+    line-height: 1.4;
+}
+#services {
+    color: #495057;
+    background-color: #f8f9fa;
+    font-size: 20px;
+    line-height: 1.4;
+    background-size: cover;
+    padding: 50px 10%;
+}
+.sub-title {
+    text-align: center;
+    color: #3a5a40;
+    font-size: 40px;
+    padding-top: 30px;
+}
+.sub-title span {
+    color: #588157;
+    font-size: 40px;
+    text-align: left;
+    margin: 5px;
+}
+.container {
+    background-size: cover;
+}
+.service-list {
+    display: flex;
+    grid-template-columns: repeat(auto-fit,minmax(259px,1fr));
+    margin-top: 50px;
+    grid-gap: 40px;
+    padding: 20px;
+}
+.service-list div {
+    background-color: #ffffff;
+    padding: 40px;
+    font-size: 13px;
+    font-weight: 13px;
+    border-radius: 20px;
+    border: 1px solid #e9ecef;
+    transition: background 0.5s, transform 0.5s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+.service-list div i {
+    font-size: 50px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+    color: #588157;
+}
+.service-list div h2 {
+    font-size: 30px;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #3a5a40;
+}
+.service-list div a {
+    text-decoration: none;
+    color: #588157;
+    font-size: 12px;
+    margin-top: 20px;
+    display: inline-block;
+    transition: color 0.3s;
+}
+.read {
+    display: inline-block;
+    padding: 12px 28px;
+    background: linear-gradient(90deg, #a3cef1 0%, #f9dcc4 100%);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #22223b;
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-weight: 600;
+    opacity: 1;
+    animation: none;
+    box-shadow: 0 0 5px #a3cef1, 0 0 25px #f9dcc4;
+    transition: background 0.3s, color 0.3s;
+}
+.read:hover {
+    background: linear-gradient(90deg, #f9dcc4 0%, #a3cef1 100%);
+    color: #3a5a40;
+    box-shadow: 0 0 5px #a3cef1, 0 0 25px #f9dcc4, 0 0 50px #a3cef1;
+}
+.service-list div:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+.last-text {
+    width: 100%;
+    text-align: center;
+    padding: 25px 0;
+    background: #e9ecef;
+    font-weight: 300;
+    margin-top: 70px;
+    color: #495057;
+}
+.top {
+    position: fixed;
+    bottom: 2.1rem;
+    right: 2.1rem;
+}
+.top i {
+    color: #ffffff;
+    background: #588157;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s;
+}
+.top i:hover {
+    background-color: #3a5a40;
+}
+@keyframes SlideRight {
+    0% { transform: translateX(-100px); opacity: 0; }
+    100% { transform: translateX(0px); opacity: 1; }
+}
+@keyframes SlideTop {
+    0% { transform: translateY(100px); opacity: 0; }
+    100% { transform: translateY(0px); opacity: 1; }
+}
+@keyframes SlideBottom {
+    0% { transform: translateY(-100px); opacity: 0; }
+    100% { transform: translateY(0px); opacity: 1; }
+}
+@keyframes SlideLeft {
+    0% { transform: translateX(-100px); opacity: 0; }
+    100% { transform: translateX(0px); opacity: 1; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+    <a href="#" class="logo"> <img src="https://th.bing.com/th/id/OIP.5aysLI8Ayx65nD7UQryV7QHaHa?r=0&rs=1&pid=ImgDetMain" alt="logo" style="height: 30px;width:30px;" /> DocuMorph AI</a>
+    <nav class="navbar">
+        <a href="#home" style="--i:1" class="active">Home</a>
+        <a href="#about" style="--i:2">About</a>
+        <a href="#services" style="--i:3">Features</a>
+    </nav>
+</header>
+<section class="home" id="home">
+    <div class="animation-wrapper" style="position: relative; width: 100%; height: 100vh; overflow: hidden;">
+        <iframe 
+            src="https://my.spline.design/particlenebula-MGTjX5NZ7irIulzN3J4siNUZ/"
+            title="3D Animation of Holoblobs"
+            frameborder="0"
+            loading="lazy"
+            style="width: 100%; height: 600px; display: block; border: none;">
+        </iframe>
+        <div class="home-container" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; padding: 2rem; text-align: center; color: #3a5a40; box-sizing: border-box; background: rgba(255,255,255,0.85); border-radius: 10px;">
+            <div class="home-content" style="margin: auto;">
+                <h3>Welcome to</h3>
+                <h1>DocuMorph AI</h1>
+                <h3>The <span class="text typed-cursor"></span></h3>
+                <p>
+                    Revolutionizing document formatting with AI-powered automation.
+                    Upload unformatted documents and get perfectly styled, structured outputs instantly — 
+                    saving time and ensuring compliance.
+                </p>
+                <div class="buttons" style="margin-top: 1.5rem;">
+                    <a href="#about" class="btn-box">Discover More</a>
+                    <button id="nextPage" class="btn-box" style="margin-left: 1rem;">Get Started</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="about" id="about">
+    <div class="about-img">
+        <!-- Placeholder for project logo or screenshot -->
+    </div>
+    <div class="about-text">
+        <h2>About <span>DocuMorph AI</span></h2>
+        <h4>AI-driven Document Transformation Engine</h4>
+        <p>DocuMorph AI automates tedious document formatting tasks by leveraging intelligent templates and AI-powered content analysis. It transforms raw text or DOCX files into polished, template-compliant documents — empowering professionals and students to focus on what matters: the content.</p>
+        <a href="#services" class="btn-box">Explore Features</a>
+    </div>
+</section>
+<section class="services" id="services">
+    <div class="container">
+        <h1 class="sub-title">Core <span>Features</span></h1>
+        <div class="service-list">
+            <div>
+                <i class="bx bx-upload" style="color:#588157"></i>
+                <h2>Seamless Upload</h2>
+                <p>Upload DOCX or plain text documents effortlessly and let DocuMorph AI handle the rest with zero manual formatting.</p>
+                <a href="#" class="read">learn more</a>
+            </div>
+            <div>
+                <i class="bx bx-layout" style="color:#588157"></i>
+                <h2>Template Customization</h2>
+                <p>Create, select, and save complex formatting templates that cover layout, fonts, margins, logos, captions, and numbering.</p>
+                <a href="#" class="read">learn more</a>
+            </div>
+            <div>
+                <i class="bx bx-robot" style="color:#588157"></i>
+                <h2>AI-Powered Formatting</h2>
+                <p>Smart detection of document sections and application of style semantics ensure professional, consistent outputs instantly.</p>
+                <a href="#" class="read">learn more</a>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="last-text">
+    <p> © Developed with passion by Team Null Terminators   |   HackVyuha </p> 
+</div>
+<a href="#" class="top"><i class="bx bx-up-arrow-alt"></i></a>
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+<script>
+var typed = new Typed(".text", {
+    strings: ["Document Transformer", "AI Innovator", "Automation Expert"],
+    typeSpeed: 100,
+    backSpeed: 100,
+    backDelay: 1000,
+    startDelay: 500,
+    loop: true,
+    showCursor: true,
+    cursorChar: "|",
+    smartBackspace: true,
+});
+document.getElementById("nextPage").addEventListener("click", () => {
+    window.location.href = "upload.html";
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DocuMorph.AI – Smart Upload</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    input[type="file"]::file-selector-button {
+      display: none;
+    }
+
+    /* Frosted glass */
+    .glass {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      display: flex;
+      ;
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    }
+
+    /* 3D inner glow */
+    .neon-glow {
+      box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 40px #0ff;
+    }
+
+    spline-viewer canvas {
+      opacity: 0.6;
+      filter: blur(1px) saturate(1.5);
+    }
+
+    body {
+      margin-bottom: 3rem;
+    }
+  </style>
+</head>
+<body class="relative min-h-screen bg-black text-white overflow-hidden font-sans">
+
+  <!-- 🌌 3D Background -->
+  <div class="absolute inset-0 z-0 pointer-events-none">
+    <spline-viewer url="https://prod.spline.design/EfznQ7MkzBS48oUV/scene.splinecode"></spline-viewer>
+  </div>
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@0.9.518/build/spline-viewer.js"></script>
+
+  <!-- 🌟 UI Layer -->
+  <div class="relative z-10">
+
+    <!-- Navbar -->
+    <nav class="glass mx-4 mt-4 rounded-xl px-6 py-4 flex justify-between items-center">
+      <div class="flex items-center space-x-2 text-xl font-bold text-white">
+        <img src="https://img.icons8.com/ios-filled/50/ffffff/document.png" alt="Logo" class="h-6">
+        <span>DocuMorph.AI</span>
+      </div>
+      <div class="text-sm font-medium text-gray-300">🌐 English</div>
+    </nav>
+
+    <!-- Header -->
+    <div class="text-center mt-20">
+      <h1 class="text-5xl font-extrabold mb-3 text-white drop-shadow-2xl">Drop Your Document</h1>
+      <p class="text-gray-300 text-lg">Upload your DOCX, PDF, or TXT — we’ll handle the rest.</p>
+    </div>
+
+    <!-- Upload Box -->
+    <main class="flex justify-center items-center mt-16">
+      <div class="glass rounded-3xl p-12 max-w-xl w-full text-center transition-transform hover:scale-105 duration-300 neon-glow cursor-pointer" onclick="document.getElementById('fileUpload').click()">
+        <input type="file" id="fileUpload" class="hidden" multiple />
+        <div class="flex flex-col items-center space-y-4">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-cyan-300 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4-4m0 0l4 4m-4-4v12M20 12a8.001 8.001 0 00-15.998-2.001M15 12h.01" />
+          </svg>
+          <p class="text-xl text-white font-semibold">Drag & drop files or <span class="text-cyan-300 underline">click to upload</span></p>
+          <p class="text-sm text-gray-400">Accepted formats: .docx, .pdf, .txt</p>
+        </div>
+      </div>
+    </main>
+
+    <!-- Action Buttons -->
+    <div class="flex justify-center mt-20 space-x-6">
+    
+      <button onclick="redirectToPreview()", class="glass neon-glow text-white text-lg font-semibold px-8 py-3 rounded-full transition hover:scale-105 hover:bg-pink-500 hover:text-black duration-300 mb-10" style="margin-bottom:2.5rem;">
+        preview
+      </button>
+
+      <!-- Return to Home Button -->
+      <button onclick="returnToHomepage()", class="glass neon-glow text-white text-lg font-semibold px-8 py-3 rounded-full transition hover:scale-105 hover:bg-pink-500 hover:text-black duration-300 mb-10" style="margin-bottom:2.5rem;">
+        Return to Home
+      </button>
+    </div>
+
+    <!-- Help Button -->
+    <div class="fixed bottom-6 right-6 z-20">
+      <button class="bg-cyan-500 hover:bg-cyan-400 text-white px-6 py-2 rounded-full shadow-lg backdrop-blur-xl">Help</button>
+    </div>
+
+  </div>
+  <script>
+    function redirectToPreview() {
+  window.location.href = "preview.html";
+}
+
+function returnToHomepage() {
+  window.location.href = "index.html";
+}
+  </script>
+</body>
+</html>
